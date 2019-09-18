@@ -1,2 +1,2 @@
-# CIS440-Project-1
-Group 5 Repository for build 1 
+# ProjectTemplate
+copy this code into your own repository, and use it for your project as you see fit!
