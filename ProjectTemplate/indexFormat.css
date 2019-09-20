@@ -1,0 +1,38 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Big+Shoulders+Text|Oswald|Raleway|Roboto+Condensed|Source+Sans+Pro&display=swap');
+html, body {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	overflow: hidden;
+	font-family: 'Oswald', sans-serif;
+}
+
+body {
+	height: 100%;
+}
+
+h1 {
+	margin: 1px;
+}
+
+button {
+	border: 1px solid gray;
+	border-radius: 10px;
+	background-color: gray;
+	color: white;
+	font-family: 'Oswald', sans-serif;
+}
+
+/*.titlecontainer {
+	background-color: lightblue;
+	display: flex;
+	flex-direction: row;
+	text-align: center;
+	border: 1px solid gray;
+	border-radius: 25px;
+	padding-left: 10px;
+	padding-right: 10px;*/
+	
+}

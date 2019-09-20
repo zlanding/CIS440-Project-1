@@ -1,8 +1,13 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en" class="noBoard">
 <head>
+	<title>Jobs4U - Login</title>
 	<meta charset="utf-8" />
-	<title></title>
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+	<link rel="stylesheet" href="indexFormat.css" />
+
 	<!--DO NOT FORGET THIS SCRIPT TAG SO YOU CAN USE JQUERY!!!!!-->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -55,7 +60,16 @@
                     alert("this code will only execute if javascript is unable to access the webservice");
                 }
             });
-        }
+		}
+
+		function ShowPassword() {
+			var x = document.getElementById("logonPass");
+			if (x.type === "password") {
+				x.type = "text";
+			} else {
+				x.type = "password";
+			}
+		}
 
 	</script>
 	<!--END OF YOUR OWN JAVASCRIPT-->
@@ -67,8 +81,14 @@
 	<!--END OF YOUR OWN CSS-->
 </head >
 <body>
-	<button onclick="javascript: TestButtonHandler();">Click here to test connection!</button>
-    <br />
-    <input type="text" id="logonID" /> <input type="text" id="logonPass" /><button onclick="javascript: logon();">Log on!</button>
+	<h1>JOBS4U</h1>
+	<form onsubmit="javascript: logon();">
+		UserName: <input type="text" id="logonID" /> 
+		<br />
+		Password: <input type="password" id="logonPass" />
+		<input type="checkbox" onclick="ShowPassword()" />Show Password
+		<br />
+		<button type="submit">Log on!</button>
+	</form>
 </body>
 </html >
