@@ -34,7 +34,8 @@
 			});
         }
 
-        function logon() {
+        //Method for Logging on
+        function Logon() {
             var id = document.getElementById("logonID").value;
             var pass = document.getElementById("logonPass").value;
             var webMethod = "ProjectServices.asmx/LogOn";
@@ -50,10 +51,16 @@
                 success: function (msg) {
                     var responseFromServer = msg.d;
                     if (responseFromServer == true) {
+                        //Upon successful login attempt, erase username and password
+                        document.getElementById("logonID").value = "";
+                        document.getElementById("logonPass").value = "";
                         alert("Logged in!");
                     }
                     else {
-                        alert("Failed to log in - bad credentials..");
+                        alert("Failed to log in - bad credentials... Re-Check Username and Password");
+
+                        //Upon failed login attempt set password to nothing but keep username
+                        document.getElementById("logonPass").value = "";
                     }
                 },
                 error: function (e) {
@@ -62,6 +69,7 @@
             });
 		}
 
+        //The function connected to the checkbox which shows Password
 		function ShowPassword() {
 			var x = document.getElementById("logonPass");
 			if (x.type === "password") {
@@ -73,22 +81,24 @@
 
 	</script>
 	<!--END OF YOUR OWN JAVASCRIPT-->
-
-	<!--AND YOUR OWN CSS CAN GO HERE AS WELL-->
-	<style>
-
-	</style>
-	<!--END OF YOUR OWN CSS-->
 </head >
 <body>
-	<h1>JOBS4U</h1>
-	<form onsubmit="javascript: logon();">
-		UserName: <input type="text" id="logonID" /> 
-		<br />
-		Password: <input type="password" id="logonPass" />
-		<input type="checkbox" onclick="ShowPassword()" />Show Password
-		<br />
-		<button type="submit">Log on!</button>
-	</form>
+	<h1 id="topPageBar">JOBS4U</h1>
+    
+    <form class="formContainer">
+        <h2>Log In</h2>
+        
+        UserName: <input type="text" id="logonID" />
+        <br />
+        Password: <input type="password" id="logonPass" />
+        <br />
+
+        <button type="button" onclick="Logon()">Log on!</button>
+        <!--This is some jankish formatting to keep the show password on the right-->
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="checkbox" onclick="ShowPassword()" />Show Password
+    </form>
+
 </body>
 </html >
+
