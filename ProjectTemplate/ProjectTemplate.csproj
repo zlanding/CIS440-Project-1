@@ -92,6 +92,7 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="index.html" />
+    <Content Include="indexActions.js" />
     <Content Include="indexFormat.css" />
     <Content Include="ProjectServices.asmx" />
     <Content Include="Web.config" />
