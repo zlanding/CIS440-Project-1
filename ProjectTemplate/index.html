@@ -9,23 +9,31 @@
     <!--Here is the link to the styling of the website-->
     <link rel="stylesheet" href="indexFormat.css" />
 </head>
-<body>
+<body onload="SetUp()">
     <h1 id="topPageBar">JOBS4U</h1>
 
-    <form class="formContainer">
+    <form class="formContainer loggedOut">
         <h2>Log In</h2>
 
-        UserName: <input type="text" id="logonID" />
+        <label for="username">UserName: </label>
+        <input type="text" id="logonID" name="username" />
+
         <br />
-        Password: <input type="password" id="logonPass" />
+        <label for="password">Password: </label>
+        <input type="password" id="logonPass" name="password" />
         <br />
 
         <button type="button" onclick="Logon()">Log on!</button>
         <!--This is some jankish formatting to keep the show password on the right-->
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <input type="checkbox" onclick="ShowPassword()" />Show Password
-    </form>
 
+        <input id="showPasswordCheckBox" type="checkbox" onclick="ShowPassword()" name="showPass" />
+        <label for="showPass">Show Password</label>
+
+    </form>
+    <h2 class="loggedIn">This is Our Home Page!</h2>
+    <button class="loggedIn" onclick="Logout()" type="button">Logout</button>
+    
     <!--DO NOT FORGET THIS SCRIPT TAG SO YOU CAN USE JQUERY!!!!!-->
     <!--It's best practice to have scripts at the bottom of the page because they take time to load up (better to have everything else load first)-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

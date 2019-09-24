@@ -41,8 +41,10 @@ button {
 /*The following lines of code are for the login area copied from the sample code*/
 .formContainer {
     flex: 1;
+    width: 100%;
     position: relative;
     margin: 5px;
+    margin-bottom: 40%;
     text-align: center;
     top: 25%;
 }
