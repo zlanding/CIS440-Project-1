@@ -11,33 +11,86 @@
 </head>
 <body onload="SetUp()">
     <h1 id="topPageBar">JOBS4U</h1>
+    <div class="contentContainer">
+        <div id="logonPanel" class="contentPanel logonPanel">
+            <form class="formContainer logonPanel">
+                <h2>Log In</h2>
 
-    <form class="formContainer loggedOut">
-        <h2>Log In</h2>
+                <label for="username">UserName: </label>
+                <input type="text" id="logonID" name="username" />
 
-        <label for="username">UserName: </label>
-        <input type="text" id="logonID" name="username" />
+                <br />
+                <label for="password">Password: </label>
+                <input type="password" id="logonPass" name="password" />
+                <br />
 
-        <br />
-        <label for="password">Password: </label>
-        <input type="password" id="logonPass" name="password" />
-        <br />
+                <button type="button" onclick="Logon()">Log on!</button>
+                <!--This is some jankish formatting to keep the show password on the right-->
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-        <button type="button" onclick="Logon()">Log on!</button>
-        <!--This is some jankish formatting to keep the show password on the right-->
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input id="showPasswordCheckBox" type="checkbox" onclick="ShowPassword()" name="showPass" />
+                <label for="showPass">Show Password</label>
+                <div><a href="#" onclick="showPanel('newAccountPanel')" class="tinyLink">...or request an account</a></div>
+                <hr />
 
-        <input id="showPasswordCheckBox" type="checkbox" onclick="ShowPassword()" name="showPass" />
-        <label for="showPass">Show Password</label>
+            </form>
+        </div>
+        <div class="contentPanel jobsPanel" id="jobsPanel">
+            <h2 class="loggedIn">This is Our Home Page!</h2>
+            <button class="loggedIn" onclick="Logout()" type="button">Logout</button>
+        </div>
 
-    </form>
-    <h2 class="loggedIn">This is Our Home Page!</h2>
-    <button class="loggedIn" onclick="Logout()" type="button">Logout</button>
-    
-    <!--DO NOT FORGET THIS SCRIPT TAG SO YOU CAN USE JQUERY!!!!!-->
-    <!--It's best practice to have scripts at the bottom of the page because they take time to load up (better to have everything else load first)-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="indexActions.js"></script>
+        <div id="newAccountPanel" class="contentPanel newAccountPanel" >
+            <div class="newAccountBox">
+                <form class="formContainer newAccountPanel" onsubmit="CreateAccount($('#newLogonId').val(), $('#newLogonPassword').val(), $('#newLogonFName').val(),
+                $('#newLogonLName').val(), $('#newLogonPhone').val(), $('newLogonEmail').val(), $('newLogonAddress').val(), $('newLogonCity').val(),
+                $('newLogonState').val(), $('newLogonZip').val()); return false;">
+                    <div class="left">Request Account</div>
+                    <div><a href="#" onclick="showPanel('logonPanel')" class="tinyLink">...or log on</a></div>
+                    <hr />
+                    <div>
+                        Username: <input type="text" id="newLogonId" />
+                    </div>
+                    <div>
+                        Password: <input type="password" id="newLogonPassword" />
+                    </div>
+                    <div>
+                        First Name: <input type="text" id="newLogonFName" />
+                    </div>
+                    <div>
+                        Last Name: <input type="text" id="newLogonLName" />
+                    </div>
+                    <div>
+                        Phone: <input type="text" id="newLogonPhone" />
+                    </div>
+                    <div>
+                        Email: <input type="text" id="newLogonEmail" />
+                    </div>
+                    <div>
+                        Street Address: <input type="text" id="newLogonAddress" />
+                    </div>
+                    <div>
+                        City: <input type="text" id="newLogonCity" />
+                    </div>
+                    <div>
+                        State: <input type="text" id="newLogonState" />
+                    </div>
+                    <div>
+                        Zip: <input type="text" id="newLogonZip" />
+                    </div>
+                    <hr />
+                    <div>
+                        <button type="submit">Go!</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+
+            <!--DO NOT FORGET THIS SCRIPT TAG SO YOU CAN USE JQUERY!!!!!-->
+            <!--It's best practice to have scripts at the bottom of the page because they take time to load up (better to have everything else load first)-->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script src="indexActions.js"></script>
 </body>
 </html>
 

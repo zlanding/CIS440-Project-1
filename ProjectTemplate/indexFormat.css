@@ -49,4 +49,30 @@ button {
     top: 25%;
 }
 
+.contentPanel {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    visibility: hidden;
+    flex: 1;
+    /*border: 1px solid gray;
+			border-radius: 25px;*/
+}
 
+.newAccountPanel {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.newAccountBox {
+    display: inline-block;
+    text-align: right;
+}
+
+.jobsPanel {
+   margin-top: 50px;
+   text-align: center;
+   width: 100%;
+}
