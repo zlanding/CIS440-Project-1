@@ -63,6 +63,9 @@ function Logon() {
     });
 }
 
+function CreateNewJob() {
+    showPanel('newJobPanel');
+}
 //Functioned called for logging out which should end session and change visibility
 function Logout() {
     //First step would be to change the visibility back to the Log On Screen
@@ -113,7 +116,7 @@ function CreateAccount(id, pass, fname, lname, phone, email, address, city, stat
 //we're using a stacked card approach for our main viewing area
 //this array holds the ids of our cards and the method
 //allows us to easly switch the interface from one to the other
-var contentPanels = ['logonPanel', 'newAccountPanel', 'jobsPanel'];
+var contentPanels = ['logonPanel', 'newAccountPanel', 'jobsPanel', 'newJobPanel'];
 //this function toggles which panel is showing, and also clears data from all panels
 function showPanel(panelId) {
     clearData();
