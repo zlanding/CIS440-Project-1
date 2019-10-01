@@ -180,7 +180,7 @@ function clearLogon() {
 
 //this function grabs accounts and loads our account window
 function LoadJobs() {
-    var webMethod = "AccountServices.asmx/GetJobs";
+    var webMethod = "ProjectServices.asmx/GetJobs";
     $.ajax({
         type: "POST",
         url: webMethod,
@@ -204,7 +204,7 @@ function LoadJobs() {
                     
                     
                     job = "<div class='jobRow' id='job" + jobsArray[i].jobID + "'>" +
-                        "<a class='nameTag' href='mailto: EMAIL GOES HERE '>" +
+                        "<a class='nameTag' href='mailto: EMAIL GOES HERE '> Email </a>" +
                         jobsArray[i].jobName + " " + jobsArray[i].jobDescription;
                    
                     
