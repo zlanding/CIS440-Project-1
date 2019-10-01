@@ -16,26 +16,38 @@ html, body {
 
 body {
     height: 100%;
+    background: #8360c3; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2ebf91, #8360c3); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2ebf91, #8360c3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 h1 {
-    margin: 1px;
+	margin: 1px;
 }
 
 button {
-    border: 1px solid gray;
-    border-radius: 10px;
-    background-color: gray;
-    color: white;
-    font-family: 'Oswald', sans-serif;
+	border: 1px solid gray;
+	border-radius: 10px;
+	background-color: gray;
+	color: white;
+	font-family: 'Oswald', sans-serif;
 }
 
 #topPageBar {
+<<<<<<< HEAD
     display: flex;
     flex-direction: row;
     text-align: center;
     /*border: 1px solid gray;
     border-radius: 25px;*/
+=======
+    background-color: lightblue;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    border: 1px solid gray;
+    border-radius: 25px;
+>>>>>>> jobsFunctionality2
     padding-left: 10px;
     padding-right: 10px;
     background: #8360c3; /* fallback for old browsers */
