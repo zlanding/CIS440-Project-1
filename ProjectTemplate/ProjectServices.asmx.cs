@@ -160,7 +160,7 @@ namespace ProjectTemplate
 
         //EXAMPLE OF A SELECT, AND RETURNING "COMPLEX" DATA TYPES
         [WebMethod(EnableSession = true)]
-        public Jobs[] GetJobs()
+        public Job[] GetJobs()
         {
             //check out the return type.  It's an array of Account objects.  You can look at our custom Account class in this solution to see that it's 
             //just a container for public class-level variables.  It's a simple container that asp.net will have no trouble converting into json.  When we return
@@ -168,12 +168,11 @@ namespace ProjectTemplate
             //Keeps everything simple.
 
             //WE ONLY SHARE ACCOUNTS WITH LOGGED IN USERS!
-            if (Session["id"] != null)
-            {
+           
                 DataTable sqlDt = new DataTable("jobs");
 
                 string sqlConnectString = getConString();
-                string sqlSelect = "select id, userid, pass, firstname, lastname, email from accounts where active=1 order by lastname";
+                string sqlSelect = "select jobID, jobOwner, jobName, jobLocationState, jobLocationCity, jobDescription, jobWage, jobDate, jobTaker, jobExperienceLevel from PostedJobs";
 
                 MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
                 MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
@@ -190,37 +189,27 @@ namespace ProjectTemplate
                 for (int i = 0; i < sqlDt.Rows.Count; i++)
                 {
                     //only share user id and pass info with admins!
-                    if (Convert.ToInt32(Session["admin"]) == 1)
-                    {
+                   
                         jobs.Add(new Job
                         {
-                            id = Convert.ToInt32(sqlDt.Rows[i]["id"]),
-                            userId = sqlDt.Rows[i]["userid"].ToString(),
-                            password = sqlDt.Rows[i]["pass"].ToString(),
-                            firstName = sqlDt.Rows[i]["firstname"].ToString(),
-                            lastName = sqlDt.Rows[i]["lastname"].ToString(),
-                            email = sqlDt.Rows[i]["email"].ToString()
+                            jobID = Convert.ToInt32(sqlDt.Rows[i]["jobID"]),
+                            jobOwner = sqlDt.Rows[i]["userid"].ToString(),
+                            jobName = sqlDt.Rows[i]["jobName"].ToString(),
+                            jobLocationState = sqlDt.Rows[i]["jobLocationState"].ToString(),
+                            jobLocationCity = sqlDt.Rows[i]["jobLocationCity"].ToString(),
+                            jobDescription = sqlDt.Rows[i]["jobDescription"].ToString(),
+                            jobWage= sqlDt.Rows[i]["jobWage"].ToString(),
+                            jobDate = sqlDt.Rows[i]["jobDate"].ToString(),
+                            jobTaker = sqlDt.Rows[i]["jobTaker"].ToString(),
+                            jobExperienceLevel = sqlDt.Rows[i]["jobExperienceLevel"].ToString()
                         });
-                    }
-                    else
-                    {
-                        jobs.Add(new Job
-                        {
-                            id = Convert.ToInt32(sqlDt.Rows[i]["id"]),
-                            firstName = sqlDt.Rows[i]["firstname"].ToString(),
-                            lastName = sqlDt.Rows[i]["lastname"].ToString(),
-                            email = sqlDt.Rows[i]["email"].ToString()
-                        });
-                    }
+                    
+                   
                 }
                 //convert the list of accounts to an array and return!
                 return jobs.ToArray();
-            }
-            else
-            {
-                //if they're not logged in, return an empty array
-                return new Job[0];
-            }
+            
+            
         }
 
 

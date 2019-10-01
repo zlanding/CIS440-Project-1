@@ -38,7 +38,7 @@
         </div>
         <div class="contentPanel jobsPanel" id="jobsPanel">
             <h2 class="loggedIn">This is Our Home Page!</h2>
-            <button class="loggedIn" onclick="CreateNewJob()" type="button">Create Job Post</button>
+            <button class="loggedIn" onclick="showPanel('newJobPanel')" type="button">Create Job Post</button>
             <button class="loggedIn" onclick="Logout()" type="button">Logout</button>
             <div class="left">Job Postings</div>
             <div class="left" style="font-size:smaller">click a name to send an email</div>
@@ -51,46 +51,49 @@
 
         <div id="newJobPanel" class="contentPanel newJobPanel">
             <div class="newJobBox">
-                 <form class="formContainer newJobPanel" onsubmit="CreateNewJob($('#newJobID').val(), $('#newJobOwner').val(), $('#newJobName').val(),
+                <form class="formContainer newJobPanel" onsubmit="CreateNewJob($('#newJobID').val(), $('#newJobOwner').val(), $('#newJobName').val(),
         $('#newJobLocationState').val(), $('#newJobLocationCity').val(), $('#newJobDescription').val(), $('#newJobWage').val(), $('#newJobDate').val(),
         $('newJobExperienceLevel').val()); return false;">
-                     <br/>
-                     <br/>
-                     <div class="left">Create Job</div>
-                     <hr />
-                     <div>
-                         Job Owner Name: <input type="text" id="newJobOwner" />
-                     </div>
-                     <div>
-                         Name of Job: <input type="text" id="newJobName" />
-                     </div>
-                     <div>
-                         State: <input type="text" id="newJobLocationState"/>
-                     </div>
-                     <div>
-                         City: <input type="text" id="newJobLocationCity"/>
-                     </div>
-                     <div>
-                         Description: <input type="text" id="newJobDescription"/>
-                     </div>
-                     <div>
-                         Job Wage: <input type="text" id="newJobWage"/>
-                     </div>
-                     <div>
-                         Date: <input type="text" id="newJobDate"/>
-                     </div>
-                     <div>
-                         Experience Level: <select name="experienceLevel">
-                                            <option value="1">Beginner</option>
-                                            <option value="2">Intermediate</option>
-                                            <option value="3">Advanced</option>
-                                           </select>
-                     </div>
-                     <hr/>
-                     <div>
-                         <button type="submit">Create!</button>
-                     </div>
-                 </form>
+                    <br />
+                    <br />
+                    <div class="left">Create Job</div>
+                    <hr />
+                    <div>
+                        Job Owner Name: <input type="text" id="newJobOwner" />
+                    </div>
+                    <div>
+                        Name of Job: <input type="text" id="newJobName" />
+                    </div>
+                    <div>
+                        State: <input type="text" id="newJobLocationState" />
+                    </div>
+                    <div>
+                        City: <input type="text" id="newJobLocationCity" />
+                    </div>
+                    <div>
+                        Description: <input type="text" id="newJobDescription" />
+                    </div>
+                    <div>
+                        Job Wage: <input type="text" id="newJobWage" />
+                    </div>
+                    <div>
+                        Date: <input type="text" id="newJobDate" />
+                    </div>
+                    <div>
+                        Experience Level: <select name="experienceLevel">
+                            <option value="1">Beginner</option>
+                            <option value="2">Intermediate</option>
+                            <option value="3">Advanced</option>
+                        </select>
+                    </div>
+                    <hr />
+                    <div>
+                        <button type="submit">Create!</button>
+                    </div>
+                    <div>
+                        <button type="button" onclick="showPanel('jobsPanel')">Browse Jobs</button>
+                    </div>
+                </form>
             </div>
         </div>
 

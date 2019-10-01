@@ -122,6 +122,9 @@ function showPanel(panelId) {
     clearData();
     for (var i = 0; i < contentPanels.length; i++) {
         if (panelId == contentPanels[i]) {
+            if (panelId == 'jobsPanel') {
+                LoadJobs();
+            }
             $("#" + contentPanels[i]).css("visibility", "visible");
         }
         else {
@@ -188,46 +191,39 @@ function LoadJobs() {
                 //let's put our accounts that we get from the
                 //server into our accountsArray variable
                 //so we can use them in other functions as well
-                accountsArray = msg.d;
+                jobsArray = msg.d;
                 //this clears out the div that will hold our account info
                 $("#jobsBox").empty();
                 //again, we assume we're not an admin unless we see data from the server
                 //that we know only admins can see
-                admin = false;
-                for (var i = 0; i < accountsArray.length; i++) {
+                
+                for (var i = 0; i < jobsArray.length; i++) {
                     //we grab on to a specific html element in jQuery
                     //by using a  # followed by that element's id.
-                    var acct;
-                    //if they have access to admin-level info (like userid and password) then
-                    //create output that has an edit option
-                    if (accountsArray[i].userId != null) {
-                        acct = "<div class='accountRow' id='acct" + accountsArray[i].id + "'>" +
-                            "<a class='nameTag' href='mailto:" + accountsArray[i].email + "'>" +
-                            accountsArray[i].firstName + " " + accountsArray[i].lastName +
-                            "</a> <a href='#' onclick='LoadAccount(" + accountsArray[i].id + ")' class='optionsTag'>edit</a></div><hr>"
-                        admin = true;
-                    }
-                    //if not, then they're not an admin so don't include the edit option
-                    else {
-                        acct = "<div class='accountRow' id='acct" + accountsArray[i].id + "'>" +
-                            "<a class='nameTag' href='mailto:" + accountsArray[i].email + "'>" +
-                            accountsArray[i].firstName + " " + accountsArray[i].lastName +
-                            "</a></div><hr>"
-                    }
-                    $("#accountsBox").append(
+                    var job;
+                    
+                    
+                    job = "<div class='jobRow' id='job" + jobsArray[i].jobID + "'>" +
+                        "<a class='nameTag' href='mailto: EMAIL GOES HERE '>" +
+                        jobsArray[i].jobName + " " + jobsArray[i].jobDescription;
+                   
+                    
+                    
+                   
+                    $("#jobsBox").append(
                         //anything we throw at our panel in the form of text
                         //will be added to the contents of that panel.  Here
                         //we're putting together a div that holds info on the
                         //account as well as an edit link if the user is an admin
-                        acct
+                        job
                     );
                 }
             }
             //we're showing the account window, so let's track that...
-            accountWindowShowing = true;
+            //accountWindowShowing = true;
             //...because the ShowMenu function behaves differently depending on
             //if the account window is showing or not
-            ShowMenu();
+            
         },
         error: function (e) {
             alert("boo...");
