@@ -193,7 +193,7 @@ namespace ProjectTemplate
                         jobs.Add(new Job
                         {
                             jobID = Convert.ToInt32(sqlDt.Rows[i]["jobID"]),
-                            jobOwner = sqlDt.Rows[i]["userid"].ToString(),
+                            jobOwner = sqlDt.Rows[i]["jobOwner"].ToString(),
                             jobName = sqlDt.Rows[i]["jobName"].ToString(),
                             jobLocationState = sqlDt.Rows[i]["jobLocationState"].ToString(),
                             jobLocationCity = sqlDt.Rows[i]["jobLocationCity"].ToString(),
