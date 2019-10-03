@@ -97,9 +97,9 @@
             </div>
         </div>
 
-        <div id="newAccountPanel" class="contentPanel newAccountPanel" >
-            <div class="newAccountBox">
-                <form class="formContainer newAccountPanel" onsubmit="CreateAccount($('#newLogonId').val(), $('#newLogonPassword').val(), $('#newLogonFName').val(),
+        <div class="contentContainer newAccountPanel">
+            <div id="newAccountPanel" class="newAccountBox contentPanel">
+                <form class="formContainer" onsubmit="CreateAccount($('#newLogonId').val(), $('#newLogonPassword').val(), $('#newLogonFName').val(),
                 $('#newLogonLName').val(), $('#newLogonPhone').val(), $('newLogonEmail').val(), $('newLogonAddress').val(), $('newLogonCity').val(),
                 $('newLogonState').val(), $('newLogonZip').val()); return false;">
                     <div class="left">Request Account</div>
