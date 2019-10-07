@@ -6,62 +6,67 @@ using System.Web.Services;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.Data;
+using Mailjet.Client;
+using Mailjet.Client.Resources;
+using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
 
 namespace ProjectTemplate
 {
-	[WebService(Namespace = "http://tempuri.org/")]
-	[WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
-	[System.ComponentModel.ToolboxItem(false)]
-	[System.Web.Script.Services.ScriptService]
+    [WebService(Namespace = "http://tempuri.org/")]
+    [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
+    [System.ComponentModel.ToolboxItem(false)]
+    [System.Web.Script.Services.ScriptService]
 
-	public class ProjectServices : System.Web.Services.WebService
-	{
-		////////////////////////////////////////////////////////////////////////
-		///replace the values of these variables with your database credentials
-		////////////////////////////////////////////////////////////////////////
-		private string dbID = "group5";
-		private string dbPass = "!!Cis440";
-		private string dbName = "group5";
-		////////////////////////////////////////////////////////////////////////
-		
-		////////////////////////////////////////////////////////////////////////
-		///call this method anywhere that you need the connection string!
-		////////////////////////////////////////////////////////////////////////
-		private string getConString() {
-			return "SERVER=107.180.1.16; PORT=3306; DATABASE=" + dbName+ "; UID=" + dbID + "; PASSWORD=" + dbPass;
-		}
-		////////////////////////////////////////////////////////////////////////
+    public class ProjectServices : System.Web.Services.WebService
+    {
+        ////////////////////////////////////////////////////////////////////////
+        ///replace the values of these variables with your database credentials
+        ////////////////////////////////////////////////////////////////////////
+        private string dbID = "group5";
+        private string dbPass = "!!Cis440";
+        private string dbName = "group5";
+        ////////////////////////////////////////////////////////////////////////
+
+        ////////////////////////////////////////////////////////////////////////
+        ///call this method anywhere that you need the connection string!
+        ////////////////////////////////////////////////////////////////////////
+        private string getConString()
+        {
+            return "SERVER=107.180.1.16; PORT=3306; DATABASE=" + dbName + "; UID=" + dbID + "; PASSWORD=" + dbPass;
+        }
+        ////////////////////////////////////////////////////////////////////////
 
 
 
-		/////////////////////////////////////////////////////////////////////////
-		//don't forget to include this decoration above each method that you want
-		//to be exposed as a web service!
-		[WebMethod(EnableSession = true)]
-		/////////////////////////////////////////////////////////////////////////
-		public string TestConnection()
-		{
-			try
-			{
-				string testQuery = "select * from Users";
+        /////////////////////////////////////////////////////////////////////////
+        //don't forget to include this decoration above each method that you want
+        //to be exposed as a web service!
+        [WebMethod(EnableSession = true)]
+        /////////////////////////////////////////////////////////////////////////
+        public string TestConnection()
+        {
+            try
+            {
+                string testQuery = "select * from Users";
 
-				////////////////////////////////////////////////////////////////////////
-				///here's an example of using the getConString method!
-				////////////////////////////////////////////////////////////////////////
-				MySqlConnection con = new MySqlConnection(getConString());
-				////////////////////////////////////////////////////////////////////////
+                ////////////////////////////////////////////////////////////////////////
+                ///here's an example of using the getConString method!
+                ////////////////////////////////////////////////////////////////////////
+                MySqlConnection con = new MySqlConnection(getConString());
+                ////////////////////////////////////////////////////////////////////////
 
-				MySqlCommand cmd = new MySqlCommand(testQuery, con);
-				MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-				DataTable table = new DataTable();
-				adapter.Fill(table);
-				return "Success!";
-			}
-			catch (Exception e)
-			{
-				return "Something went wrong, please check your credentials and db name and try again.  Error: "+e.Message;
-			}
-		}
+                MySqlCommand cmd = new MySqlCommand(testQuery, con);
+                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                DataTable table = new DataTable();
+                adapter.Fill(table);
+                return "Success!";
+            }
+            catch (Exception e)
+            {
+                return "Something went wrong, please check your credentials and db name and try again.  Error: " + e.Message;
+            }
+        }
 
         [WebMethod(EnableSession = true)] //NOTICE: gotta enable session on each individual method
         public bool LogOn(string uid, string pass)
@@ -168,50 +173,119 @@ namespace ProjectTemplate
             //Keeps everything simple.
 
             //WE ONLY SHARE ACCOUNTS WITH LOGGED IN USERS!
-           
-                DataTable sqlDt = new DataTable("jobs");
 
-                string sqlConnectString = getConString();
-                string sqlSelect = "select jobID, jobOwner, jobName, jobLocationState, jobLocationCity, jobDescription, jobWage, jobDate, jobTaker, jobExperienceLevel from PostedJobs";
+            DataTable sqlDt = new DataTable("jobs");
 
-                MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
-                MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
+            string sqlConnectString = getConString();
+            string sqlSelect = "select jobID, jobOwner, jobName, jobLocationState, jobLocationCity, jobDescription, jobWage, jobDate, jobTaker, jobExperienceLevel from PostedJobs";
 
-                //gonna use this to fill a data table
-                MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
-                //filling the data table
-                sqlDa.Fill(sqlDt);
+            MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+            MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
 
-                //loop through each row in the dataset, creating instances
-                //of our container class Account.  Fill each acciount with
-                //data from the rows, then dump them in a list.
-                List<Job> jobs = new List<Job>();
-                for (int i = 0; i < sqlDt.Rows.Count; i++)
+            //gonna use this to fill a data table
+            MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
+            //filling the data table
+            sqlDa.Fill(sqlDt);
+
+            //loop through each row in the dataset, creating instances
+            //of our container class Account.  Fill each acciount with
+            //data from the rows, then dump them in a list.
+            List<Job> jobs = new List<Job>();
+            for (int i = 0; i < sqlDt.Rows.Count; i++)
+            {
+                //only share user id and pass info with admins!
+
+                jobs.Add(new Job
                 {
-                    //only share user id and pass info with admins!
-                   
-                        jobs.Add(new Job
-                        {
-                            jobID = Convert.ToInt32(sqlDt.Rows[i]["jobID"]),
-                            jobOwner = sqlDt.Rows[i]["jobOwner"].ToString(),
-                            jobName = sqlDt.Rows[i]["jobName"].ToString(),
-                            jobLocationState = sqlDt.Rows[i]["jobLocationState"].ToString(),
-                            jobLocationCity = sqlDt.Rows[i]["jobLocationCity"].ToString(),
-                            jobDescription = sqlDt.Rows[i]["jobDescription"].ToString(),
-                            jobWage= sqlDt.Rows[i]["jobWage"].ToString(),
-                            jobDate = sqlDt.Rows[i]["jobDate"].ToString(),
-                            jobTaker = sqlDt.Rows[i]["jobTaker"].ToString(),
-                            jobExperienceLevel = sqlDt.Rows[i]["jobExperienceLevel"].ToString()
-                        });
-                    
-                   
-                }
-                //convert the list of accounts to an array and return!
-                return jobs.ToArray();
-            
-            
+                    jobID = Convert.ToInt32(sqlDt.Rows[i]["jobID"]),
+                    jobOwner = sqlDt.Rows[i]["jobOwner"].ToString(),
+                    jobName = sqlDt.Rows[i]["jobName"].ToString(),
+                    jobLocationState = sqlDt.Rows[i]["jobLocationState"].ToString(),
+                    jobLocationCity = sqlDt.Rows[i]["jobLocationCity"].ToString(),
+                    jobDescription = sqlDt.Rows[i]["jobDescription"].ToString(),
+                    jobWage = sqlDt.Rows[i]["jobWage"].ToString(),
+                    jobDate = sqlDt.Rows[i]["jobDate"].ToString(),
+                    jobTaker = sqlDt.Rows[i]["jobTaker"].ToString(),
+                    jobExperienceLevel = sqlDt.Rows[i]["jobExperienceLevel"].ToString()
+                });
+
+
+            }
+            //convert the list of accounts to an array and return!
+            return jobs.ToArray();
+
+
         }
-
-
+        // start of the api code to attempt to send emails, was not working for me, look up MailJet API, thats what this is -Zach
+        //class Program
+        //{
+        //    static void Main(string[] args)
+        //    {
+        //        RunAsync().Wait();
+        //    }
+        //    static async Task RunAsync()
+        //    {
+        //        MailjetClient client = new MailjetClient(Environment.GetEnvironmentVariable("8e3534324fa39cc25afb07d2be566c27"),
+        //            Environment.GetEnvironmentVariable("49f03355d8d0479724c443b12a00d183"))
+        //        {
+        //            Version = ApiVersion.V3_1,
+        //        };
+        //        MailjetRequest request = new MailjetRequest
+        //        {
+        //            Resource = Send.Resource,
+        //        }
+        //         .Property(Send.Messages, new JArray {
+        // new JObject {
+        //  {
+        //   "From",
+        //   new JObject {
+        //    {"Email", "zlanding@asu.edu"},
+        //    {"Name", "Zach"}
+        //   }
+        //  }, {
+        //   "To",
+        //   new JArray {
+        //    new JObject {
+        //     {
+        //      "Email",
+        //      "zlanding@asu.edu"
+        //     }, {
+        //      "Name",
+        //      "Zach"
+        //     }
+        //    }
+        //   }
+        //  }, {
+        //   "Subject",
+        //   "Greetings from Mailjet."
+        //  }, {
+        //   "TextPart",
+        //   "My first Mailjet email"
+        //  }, {
+        //   "HTMLPart",
+        //   "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!"
+        //  }, {
+        //   "CustomID",
+        //   "AppGettingStartedTest"
+        //  }
+        // }
+        //         });
+        //        MailjetResponse response = await client.PostAsync(request);
+        //        if (response.IsSuccessStatusCode)
+        //        {
+        //            Console.WriteLine(string.Format("Total: {0}, Count: {1}\n", response.GetTotal(), response.GetCount()));
+        //            Console.WriteLine(response.GetData());
+        //        }
+        //        else
+        //        {
+        //            Console.WriteLine(string.Format("StatusCode: {0}\n", response.StatusCode));
+        //            Console.WriteLine(string.Format("ErrorInfo: {0}\n", response.GetErrorInfo()));
+        //            Console.WriteLine(response.GetData());
+        //            Console.WriteLine(string.Format("ErrorMessage: {0}\n", response.GetErrorMessage()));
+        //        }
+        //    }
+        //}
     }
+
 }
+

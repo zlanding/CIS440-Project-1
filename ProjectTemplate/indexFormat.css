@@ -47,7 +47,7 @@ button {
 /*The following lines of code are for the login area copied from the sample code*/
 .formContainer {
     flex: 1;
-    width: 260px;
+    width: 280px;
     position: relative;
     margin: 5px;
     margin-bottom: 40%;
@@ -80,6 +80,25 @@ button {
     margin-top: 50px;
 }
 
+.newJobPanel {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: auto;
+    visibility: hidden;
+    flex: 1;
+}
+#newJobBox {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 300px;
+    visibility: hidden;
+    flex: 1;
+}
+
 .newAccountBox {
     display: inline-block;
     text-align: right;
@@ -89,4 +108,8 @@ button {
    margin-top: 50px;
    text-align: center;
    width: 100%;
+}
+
+.createJobInput{
+    width: 40px;
 }
