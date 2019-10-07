@@ -100,7 +100,7 @@ function CreateAccount(id, pass, fname, lname, phone, email, address, city, stat
         success: function (msg) {
             var response_from_server = msg.d;
             if (response_from_server == true) {
-                alert("New Account Created");
+                alert("New Account Created, check your email!");
             }
             else {
                 alert("New Account Not Created For Some Reason..");

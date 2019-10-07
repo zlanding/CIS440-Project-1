@@ -6,8 +6,6 @@ using System.Web.Services;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.Data;
-using Mailjet.Client;
-using Mailjet.Client.Resources;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 
@@ -140,6 +138,7 @@ namespace ProjectTemplate
             sqlCommand.Parameters.AddWithValue("@passValue", HttpUtility.UrlDecode(pass));
             sqlCommand.Parameters.AddWithValue("@emailValue", HttpUtility.UrlDecode(email));
 
+
             //this time, we're not using a data adapter to fill a data table.  We're just
             //opening the connection, telling our command to "executescalar" which says basically
             //execute the query and just hand me back the number the query returns (the ID, remember?).
@@ -160,8 +159,18 @@ namespace ProjectTemplate
             {
             }
             sqlConnection.Close();
+            
+            //Check if success is true and then use the functions in MailJet to send automated email.
+            //****************Kay needs to ask question in class to make this work*************************
+            
+            /*if (success)
+            {
+                Mailjet sendWelcome = new Mailjet();
+                sendWelcome.SendInitialEmail(email, firstName);
+            }*/
             return success;
         }
+
 
         //EXAMPLE OF A SELECT, AND RETURNING "COMPLEX" DATA TYPES
         [WebMethod(EnableSession = true)]
@@ -216,6 +225,8 @@ namespace ProjectTemplate
 
 
         }
+
+
         // start of the api code to attempt to send emails, was not working for me, look up MailJet API, thats what this is -Zach
         //class Program
         //{
