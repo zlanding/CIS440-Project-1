@@ -41,7 +41,7 @@
             <button class="loggedIn" onclick="showPanel('newJobPanel')" type="button">Create Job Post</button>
             <button class="loggedIn" onclick="Logout()" type="button">Logout</button>
             <div class="left">Job Postings</div>
-            <div class="left" style="font-size:smaller">click a name to send an email</div>
+            <div class="left" style="font-size:smaller">click to send an email</div>
             <hr />
             <div class="jobsBox" id="jobsBox">
 
@@ -51,8 +51,8 @@
 
         <div id="newJobPanel" class="contentPanel newJobPanel">
             <div class="newJobBox">
-                <form class="formContainer newJobPanel" onsubmit="CreateNewJob($('#newJobID').val(), $('#newJobOwner').val(), $('#newJobName').val(),
-        $('#newJobLocationState').val(), $('#newJobLocationCity').val(), $('#newJobDescription').val(), $('#newJobWage').val(), $('#newJobDate').val(),
+                <form class="formContainer newJobPanel" onsubmit="CreateNewJob($('#newJobOwner').val(), $('#newJobName').val(),
+        $('#newJobLocationState').val(), $('#newJobLocationCity').val(), $('#newJobDescription').val(), $('#newJobWage').val(), $('#newJobDate').val(), 
         $('newJobExperienceLevel').val()); return false;">
                     <br />
                     <br />
@@ -79,6 +79,7 @@
                     <div>
                         Date: <input type="text" id="newJobDate" />
                     </div>
+                    
                     <div>
                         Experience Level: <select name="experienceLevel">
                             <option value="1">Beginner</option>

@@ -63,8 +63,33 @@ function Logon() {
     });
 }
 
-function CreateNewJob() {
-    showPanel('newJobPanel');
+function CreateNewJob(newJobOwner, newJobName, newJobLocationState, newJobLocationCity, newJobDescription, newJobWage, newJobDate,
+    newJobExperienceLevel) {
+    var webMethod = "ProjectServices.asmx/CreateJob";
+    var parameters = "{\"newJobOwner\":\"" + encodeURI(newJobOwner) + "\",\"newJobName\":\"" + encodeURI(newJobName) + "\",\"newJobLocationState\":\"" + encodeURI(newJobLocationState) + "\",\"newJobLocationCity\":\"" +
+        encodeURI(newJobLocationCity) + "\",\"newJobDescription\":\"" + encodeURI(newJobDescription) + "\",\"newJobWage\":\"" + encodeURI(newJobWage) + "\",\"newJobDate\":\"" + encodeURI(newJobDate) + 
+        "\",\"newJobExperienceLevel\":\"" + encodeURI(newJobExperienceLevel) + "\"}";
+    $.ajax({
+        type: "POST",
+        url: webMethod,
+        data: parameters,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (msg) {
+            var response_from_server = msg.d;
+            if (response_from_server == true) {
+                alert("New Job Created");
+            }
+            else {
+                alert("New Job Not Created For Some Reason..");
+            }
+            showPanel('jobsPanel');
+        },
+        error: function (e) {
+            alert("boo...");
+        }
+    });
+    //showPanel('jobsPanel');
 }
 //Functioned called for logging out which should end session and change visibility
 function Logout() {

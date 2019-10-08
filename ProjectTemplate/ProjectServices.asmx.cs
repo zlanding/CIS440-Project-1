@@ -212,6 +212,55 @@ namespace ProjectTemplate
             
         }
 
+        [WebMethod(EnableSession = true)]
+        public bool CreateJob(string newJobOwner, string newJobName, string newJobLocationState, string newJobLocationCity, string newJobDescription, string newJobWage,
+            string newJobDate, string newJobExperienceLevel)
+        {
+            bool success = false;
+            string sqlConnectString = getConString();
+            //string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings['myDB'].ConnectionString;
+            //the only thing fancy about this query is SELECT LAST_INSERT_ID() at the end.  All that
+            //does is tell mySql server to return the primary key of the last inserted row.
+            string sqlSelect = "insert into PostedJobs (jobOwner, jobName, jobLocationState, jobLocationCity, jobDescription, jobWage, jobDate, jobTaker, jobExperienceLevel) " +
+                "values(@jobOwnerValue, @newJobNameValue, @newJobLocationStateValue, @newJobLocationCityValue, @newJobDescriptionValue, @newJobWageValue, @newJobDateValue, " +
+                "@newJobTakerValue, @newJobExperienceLevelValue); SELECT LAST_INSERT_ID();";
+            string taker = "";
+            MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+            MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
+
+            sqlCommand.Parameters.AddWithValue("@jobOwnerValue", HttpUtility.UrlDecode(newJobOwner));
+            sqlCommand.Parameters.AddWithValue("@newJobNameValue", HttpUtility.UrlDecode(newJobName));
+            sqlCommand.Parameters.AddWithValue("@newJobLocationStateValue", HttpUtility.UrlDecode(newJobLocationState));
+            sqlCommand.Parameters.AddWithValue("@newJobLocationCityValue", HttpUtility.UrlDecode(newJobLocationCity));
+            sqlCommand.Parameters.AddWithValue("@newJobDescriptionValue", HttpUtility.UrlDecode(newJobDescription));
+            sqlCommand.Parameters.AddWithValue("@newJobWageValue", HttpUtility.UrlDecode(newJobWage));
+            sqlCommand.Parameters.AddWithValue("@newJobDateValue", HttpUtility.UrlDecode(newJobDate));
+            sqlCommand.Parameters.AddWithValue("@newJobTakerValue", HttpUtility.UrlDecode(taker));   
+            sqlCommand.Parameters.AddWithValue("@newJobExperienceLevelValue", HttpUtility.UrlDecode(newJobExperienceLevel));
+
+            //this time, we're not using a data adapter to fill a data table.  We're just
+            //opening the connection, telling our command to "executescalar" which says basically
+            //execute the query and just hand me back the number the query returns (the ID, remember?).
+            //don't forget to close the connection!
+            sqlConnection.Open();
+            //we're using a try/catch so that if the query errors out we can handle it gracefully
+            //by closing the connection and moving on
+            try
+            {
+                int jobID = Convert.ToInt32(sqlCommand.ExecuteScalar());
+                success = true;
+                //here, you could use this accountID for additional queries regarding
+                //the requested account.  Really this is just an example to show you
+                //a query where you get the primary key of the inserted row back from
+                //the database!
+            }
+            catch (Exception e)
+            {
+            }
+            sqlConnection.Close();
+            return success;
+        }
+
 
     }
 }
