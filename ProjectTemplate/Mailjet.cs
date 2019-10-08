@@ -4,11 +4,11 @@ using System;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 
-namespace ProjectTemplate.ConsoleApplication
+namespace ProjectTemplate
 {
     public class Mailjet
     {
-        static void SendInitialEmail(string email, string name)
+        public static void SendInitialEmail(string email, string name)
         {
             RunAsync(email, name).Wait();
         }
@@ -58,8 +58,9 @@ namespace ProjectTemplate.ConsoleApplication
       }
      }
              });
-            MailjetResponse response = await client.PostAsync(request);
-            if (response.IsSuccessStatusCode)
+
+            /*MailjetResponse response = await client.PostAsync(request);
+            if (response.IsSuccessStatusCode);
             {
                 Console.WriteLine(string.Format("Total: {0}, Count: {1}\n", response.GetTotal(), response.GetCount()));
                 Console.WriteLine(response.GetData());
@@ -70,7 +71,7 @@ namespace ProjectTemplate.ConsoleApplication
                 Console.WriteLine(string.Format("ErrorInfo: {0}\n", response.GetErrorInfo()));
                 Console.WriteLine(response.GetData());
                 Console.WriteLine(string.Format("ErrorMessage: {0}\n", response.GetErrorMessage()));
-            }
+            }*/
         }
     }
 }

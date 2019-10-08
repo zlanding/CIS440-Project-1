@@ -163,11 +163,11 @@ namespace ProjectTemplate
             //Check if success is true and then use the functions in MailJet to send automated email.
             //****************Kay needs to ask question in class to make this work*************************
             
-            /*if (success)
+            if (success)
             {
-                Mailjet sendWelcome = new Mailjet();
-                sendWelcome.SendInitialEmail(email, firstName);
-            }*/
+                //Mailjet sendWelcome = new Mailjet();
+                Mailjet.SendInitialEmail(email, firstName);
+            }
             return success;
         }
 
