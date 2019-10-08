@@ -59,13 +59,12 @@ namespace ProjectTemplate
      }
              });
 
-            /*MailjetResponse response = await client.PostAsync(request);
-            if (response.IsSuccessStatusCode);
+            MailjetResponse response = await client.PostAsync(request);
+            if (response.IsSuccessStatusCode)
             {
-                Console.WriteLine(string.Format("Total: {0}, Count: {1}\n", response.GetTotal(), response.GetCount()));
-                Console.WriteLine(response.GetData());
+              
             }
-            else
+            /*else
             {
                 Console.WriteLine(string.Format("StatusCode: {0}\n", response.StatusCode));
                 Console.WriteLine(string.Format("ErrorInfo: {0}\n", response.GetErrorInfo()));
