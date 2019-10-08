@@ -114,6 +114,8 @@ namespace ProjectTemplate
         public bool RequestAccount(string uid, string pass, string firstName, string lastName, string phone, string email,
             string address, string city, string state, string zip)
         {
+            string savedEmail = email;
+
             bool success = false;
             string sqlConnectString = getConString();
             //string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings['myDB'].ConnectionString;
@@ -166,7 +168,7 @@ namespace ProjectTemplate
             if (success)
             {
                 //Mailjet sendWelcome = new Mailjet();
-                Mailjet.SendInitialEmail(email, firstName);
+                Mailjet.SendInitialEmail(savedEmail, firstName);
             }
             return success;
         }
