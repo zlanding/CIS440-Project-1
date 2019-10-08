@@ -99,9 +99,11 @@ button {
     flex: 1;
 }
 
+
 .newAccountBox {
     display: inline-block;
     text-align: right;
+    float: left;
 }
 
 .jobsPanel {
@@ -113,3 +115,6 @@ button {
 .createJobInput{
     width: 40px;
 }
+
+
+
