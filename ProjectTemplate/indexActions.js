@@ -204,8 +204,8 @@ function LoadJobs() {
                     
                     
                     job = "<div class='jobRow' id='job" + jobsArray[i].jobID + "'>" +
-                        "<a class='nameTag' href='mailto: EMAIL GOES HERE '> Email </a>" +
-                        jobsArray[i].jobName + " " + jobsArray[i].jobDescription;
+                        "<h1>" + jobsArray[i].jobName + "</h1> " + jobsArray[i].jobDescription + " " +
+                        "<a class='nameTag' href='mailto: EMAIL GOES HERE '> Email </a>";
                    
                     
                     
