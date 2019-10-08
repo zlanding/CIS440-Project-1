@@ -43,7 +43,11 @@
             <br />
             <br />
             <div class="left">Job Postings</div>
+<<<<<<< HEAD
             <div class="left" style="font-size:smaller">Click a name to send an email!</div>
+=======
+            <div class="left" style="font-size:smaller">click to send an email</div>
+>>>>>>> jobsBackEnd
             <hr />
             <div class="jobsBox" id="jobsBox">
 
@@ -53,8 +57,8 @@
 
         <div id="newJobPanel" class="contentPanel newJobPanel">
             <div class="newJobBox">
-                <form class="formContainer newJobPanel" onsubmit="CreateNewJob($('#newJobID').val(), $('#newJobOwner').val(), $('#newJobName').val(),
-        $('#newJobLocationState').val(), $('#newJobLocationCity').val(), $('#newJobDescription').val(), $('#newJobWage').val(), $('#newJobDate').val(),
+                <form class="formContainer newJobPanel" onsubmit="CreateNewJob($('#newJobOwner').val(), $('#newJobName').val(),
+        $('#newJobLocationState').val(), $('#newJobLocationCity').val(), $('#newJobDescription').val(), $('#newJobWage').val(), $('#newJobDate').val(), 
         $('newJobExperienceLevel').val()); return false;">
                     <br />
                     <br />
@@ -88,6 +92,7 @@
                         <label class="textBoxLabel">Date:</label>
                         <input class="createJobInput textBoxInput" type="text" id="newJobDate" />
                     </div>
+                    
                     <div>
                         <label class="textBoxLabel">Experience:</label>
                         <select class="textBoxInput" name="experienceLevel">
